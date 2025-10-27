@@ -30,10 +30,10 @@ function Main() {
 					<Search bgColor="bg-[#04131F]" width="mx-auto" visible={true} />
 				</div>
 
-				<div className="grid grid-cols-1 lg:grid-cols-6 gap-[38px] pt-10">
+				<div className="grid grid-cols-1 lg:grid-cols-7 gap-[38px] pt-10">
 					<TransactionHistory />
 
-					<div className="lg:col-span-2 space-y-4">
+					<div className="lg:col-span-3 space-y-4">
 						<div className="flex justify-between items-center">
 							<h2 className="text-[20px] lg:text-[24px]">Supported Networks</h2>
 

@@ -1,21 +1,21 @@
-import { capitalizeFirst, timeAgo, wrapString } from "@/utils";
-import { IoCheckmarkCircle } from "react-icons/io5";
-import { RiErrorWarningFill } from "react-icons/ri";
-import { CgSandClock } from "react-icons/cg";
+import { capitalizeFirst, timeAgo } from "@/utils";
 import HistoryDetails from "./HistoryDetails";
+import Status from "./Status";
 
 function TransactionHistoryDetails({ transaction }) {
 	return (
 		<div className="text-sm overflow-scroll">
 			<div className="px-5">
-				<HistoryDetails title="Message ID" value={transaction.tx_id} />
+				<HistoryDetails title="Msg ID" value={transaction.tx_id} iconPresent />
 				<HistoryDetails
 					title="Origin ID"
 					value={transaction.origin_chain_info.origin_id}
+					iconPresent
 				/>
 				<HistoryDetails
 					title="Destination ID"
 					value={transaction.dest_chain_info.dest_id}
+					iconPresent
 				/>
 				<HistoryDetails
 					title="Origin Transaction Hash"
@@ -33,7 +33,7 @@ function TransactionHistoryDetails({ transaction }) {
 				/>
 				<HistoryDetails
 					title="Transaction Data"
-					value={wrapString(transaction.tx_data)}
+					value={transaction.tx_data}
 					iconPresent
 				/>
 				<HistoryDetails
@@ -48,24 +48,7 @@ function TransactionHistoryDetails({ transaction }) {
 				<div className="border-b p-4 overflow-scroll border-[#09243B] grid gap-2 grid-cols-1 md:grid-cols-3">
 					<span className="text-[#D2D5D9] font-medium">Final Status</span>
 
-					<div
-						className={`flex w-[100px] items-center gap-1 shrink-0 text-[12px] sm:text-[15px] py-1.5 px-3 rounded-3xl ${
-							transaction.final_status === "success"
-								? "bg-[#DDF8E6] text-[#1E633A]"
-								: transaction.final_status === "pending"
-								? "bg-yellow-500/20 text-yellow-400"
-								: "bg-[#FCE9E9] text-red-400"
-						} `}
-					>
-						{transaction.final_status === "pending" ? (
-							<CgSandClock className="text-[16px]" />
-						) : transaction.final_status === "success" ? (
-							<IoCheckmarkCircle className="text-[16px] text-[#2FB96C]" />
-						) : (
-							<RiErrorWarningFill className="text-[16px] text-[#F31307]" />
-						)}
-						{capitalizeFirst(transaction?.final_status)}
-					</div>
+					<Status transaction={transaction} />
 				</div>
 
 				{transaction.error && (
