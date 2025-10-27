@@ -5,7 +5,6 @@ import { CgSandClock } from "react-icons/cg";
 import HistoryDetails from "./HistoryDetails";
 
 function TransactionHistoryDetails({ transaction }) {
-	console.log("Transaction in Details:", transaction);
 	return (
 		<div className="text-sm overflow-scroll">
 			<div className="px-5">
