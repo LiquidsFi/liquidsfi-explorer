@@ -9,10 +9,13 @@ function TransactionHistoryDetails({ transaction }) {
 		<div className="text-sm overflow-scroll">
 			<div className="px-5">
 				<HistoryDetails title="Message ID" value={transaction.tx_id} />
-				<HistoryDetails title="Origin ID" value={transaction.origin_id} />
+				<HistoryDetails
+					title="Origin ID"
+					value={transaction.origin_chain_info.origin_id}
+				/>
 				<HistoryDetails
 					title="Destination ID"
-					value={transaction.destination_id}
+					value={transaction.dest_chain_info.dest_id}
 				/>
 				<HistoryDetails
 					title="Origin Transaction Hash"
@@ -63,6 +66,14 @@ function TransactionHistoryDetails({ transaction }) {
 					</div>
 				</div>
 
+				{transaction.error && (
+					<HistoryDetails
+						title="Error"
+						value={transaction.error.message}
+						textColor="text-red-400"
+					/>
+				)}
+
 				<HistoryDetails
 					title="Sender Contract"
 					value={transaction.sender}
@@ -86,7 +97,13 @@ function TransactionHistoryDetails({ transaction }) {
 					<span className="text-[#D2D5D9] font-medium">Source Chain</span>
 
 					<span className="font-medium flex items-center text-left text-[#D2D5D9] gap-2">
-						<img src={transaction.originIcon} className="h-7 w-7" alt="" />
+						<img
+							src={transaction.origin_chain_info.origin_icon}
+							className="h-7 w-7"
+							alt=""
+						/>
+
+						<span>{transaction.origin_chain_info.origin_name}</span>
 					</span>
 				</div>
 
@@ -94,7 +111,13 @@ function TransactionHistoryDetails({ transaction }) {
 					<span className="text-[#D2D5D9] font-medium">Destination Chain</span>
 
 					<span className="font-medium flex items-center text-left text-[#D2D5D9] gap-2">
-						<img src={transaction.destIcon} className="h-7 w-7" alt="" />
+						<img
+							src={transaction.dest_chain_info.dest_icon}
+							className="h-7 w-7"
+							alt=""
+						/>
+
+						<span>{transaction.dest_chain_info.dest_name}</span>
 					</span>
 				</div>
 
