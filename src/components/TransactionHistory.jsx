@@ -23,11 +23,11 @@ import Empty from "./Empty";
 import TransactionHistoryDetails from "./TransactionHistoryDetails";
 import History from "./History";
 import { IoMdClose } from "react-icons/io";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 function TransactionHistory() {
 	const navigate = useNavigate();
-	const searchParams = new URLSearchParams(useLocation().search);
+	const { id: transactionIdFromUrl } = useParams();
 
 	const {
 		data: transactionHistoryData,
@@ -40,7 +40,6 @@ function TransactionHistory() {
 	});
 
 	const [openTransaction, setOpenTransaction] = useState(null);
-	const transactionIdFromUrl = searchParams.get("id");
 
 	const [isDesktop, setIsDesktop] = useState(
 		typeof window !== "undefined" ? window.innerWidth >= 1024 : false
@@ -68,8 +67,8 @@ function TransactionHistory() {
 	}, [transactionIdFromUrl, transactionHistoryData]);
 
 	function updateUrl(transaction) {
-		if (!transaction) navigate("/");
-		else navigate(`?id=${transaction.tx_id}`);
+		if (!transaction) navigate("/", { replace: true });
+		else navigate(`/${transaction.tx_id}`, { replace: true });
 	}
 
 	return (

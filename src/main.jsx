@@ -9,7 +9,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 const router = createBrowserRouter([
 	{
-		path: "/",
+		path: "/:id?",
 		element: <App />,
 	},
 	{
