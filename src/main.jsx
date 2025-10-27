@@ -3,11 +3,24 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import ReactQueryProviders from "./components/ReactQueryProvider.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import NotFound from "./components/NotFound";
+
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <App />,
+	},
+	{
+		path: "*",
+		Component: NotFound,
+	},
+]);
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
 		<ReactQueryProviders>
-			<App />
+			<RouterProvider router={router} />
 		</ReactQueryProviders>
 	</StrictMode>
 );

@@ -23,8 +23,12 @@ import Empty from "./Empty";
 import TransactionHistoryDetails from "./TransactionHistoryDetails";
 import History from "./History";
 import { IoMdClose } from "react-icons/io";
+import { useNavigate, useLocation } from "react-router";
 
 function TransactionHistory() {
+	const navigate = useNavigate();
+	const searchParams = new URLSearchParams(useLocation().search);
+
 	const {
 		data: transactionHistoryData,
 		isLoading: loadingTransactionHistory,
@@ -36,6 +40,7 @@ function TransactionHistory() {
 	});
 
 	const [openTransaction, setOpenTransaction] = useState(null);
+	const transactionIdFromUrl = searchParams.get("id");
 
 	const [isDesktop, setIsDesktop] = useState(
 		typeof window !== "undefined" ? window.innerWidth >= 1024 : false
@@ -49,17 +54,35 @@ function TransactionHistory() {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
+	useEffect(() => {
+		if (!transactionHistoryData) return;
+
+		const index = transactionHistoryData.findIndex(
+			(tx) => String(tx.tx_id) === transactionIdFromUrl
+		);
+		if (index !== -1) {
+			setOpenTransaction(index);
+		} else {
+			setOpenTransaction(null);
+		}
+	}, [transactionIdFromUrl, transactionHistoryData]);
+
+	function updateUrl(transaction) {
+		if (!transaction) navigate("/");
+		else navigate(`?id=${transaction.tx_id}`);
+	}
+
 	return (
 		<div className="lg:col-span-4 space-y-4">
-			<h2 className="text-[20px] lg:text-[24px]">Latest Transactions</h2>
+			<h2 className="text-[20px] lg:text-[24px]">Latest transaction</h2>
 
 			<div className="border border-[#09243B] p-6 rounded-xl">
 				{loadingTransactionHistory ? (
 					<Loader />
 				) : errorLoadingTransactionHistory ? (
-					<Empty title="Failed to load transactions..." />
+					<Empty title="Failed to load transaction..." />
 				) : transactionHistoryData.length === 0 ? (
-					<Empty title="No transactions found..." />
+					<Empty title="No transaction found..." />
 				) : (
 					transactionHistoryData.map((transaction, i) => (
 						<Fragment key={i}>
@@ -67,7 +90,10 @@ function TransactionHistory() {
 								{isDesktop ? (
 									<Sheet
 										open={openTransaction === i}
-										onOpenChange={(open) => setOpenTransaction(open ? i : null)}
+										onOpenChange={(open) => {
+											setOpenTransaction(open ? i : null);
+											updateUrl(open ? transaction : null);
+										}}
 									>
 										<SheetTrigger asChild>
 											<div>
@@ -92,7 +118,10 @@ function TransactionHistory() {
 								) : (
 									<Drawer
 										open={openTransaction === i}
-										onOpenChange={(open) => setOpenTransaction(open ? i : null)}
+										onOpenChange={(open) => {
+											setOpenTransaction(open ? i : null);
+											updateUrl(open ? transaction : null);
+										}}
 									>
 										<DrawerTrigger asChild>
 											<div>
