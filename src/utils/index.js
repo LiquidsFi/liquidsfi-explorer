@@ -33,3 +33,8 @@ export function shortenString(str, maxLength = 20) {
 	const end = str.slice(-half);
 	return `${start}...${end}`;
 }
+
+export function wrapString(str, lineLength = 90) {
+	if (!str) return "";
+	return str.match(new RegExp(`.{1,${lineLength}}`, "g")).join("\n");
+}

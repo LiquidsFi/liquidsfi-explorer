@@ -1,10 +1,11 @@
-import { capitalizeFirst, timeAgo } from "@/utils";
+import { capitalizeFirst, timeAgo, wrapString } from "@/utils";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { CgSandClock } from "react-icons/cg";
 import HistoryDetails from "./HistoryDetails";
 
 function TransactionHistoryDetails({ transaction }) {
+	console.log("Transaction in Details:", transaction);
 	return (
 		<div className="text-sm overflow-scroll">
 			<div className="px-5">
@@ -22,16 +23,18 @@ function TransactionHistoryDetails({ transaction }) {
 					value={transaction.origin_tx_hash}
 					textColor="text-[#2DD4BF]"
 					iconPresent
+					link={transaction.origin_chain_info.origin_explorer}
 				/>
 				<HistoryDetails
 					title="Destination Transaction Hash"
 					value={transaction.destination_tx_hash}
 					textColor="text-[#2DD4BF]"
 					iconPresent
+					link={transaction.dest_chain_info.dest_explorer}
 				/>
 				<HistoryDetails
 					title="Transaction Data"
-					value={transaction.tx_data}
+					value={wrapString(transaction.tx_data)}
 					iconPresent
 				/>
 				<HistoryDetails
