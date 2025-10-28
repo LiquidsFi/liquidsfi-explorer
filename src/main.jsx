@@ -1,16 +1,22 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.jsx";
 import ReactQueryProviders from "./components/ReactQueryProvider.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import NotFound from "./components/NotFound";
 import { Toaster } from "@/components/ui/sonner";
+import RootLayout from "./components/RootLayout";
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
 	{
-		path: "/:id?",
-		element: <App />,
+		path: "/",
+		Component: RootLayout,
+		children: [
+			{ index: "true", Component: Home },
+			{ path: "lane-status", element: <></> },
+			{ path: ":id", Component: Home },
+		],
 	},
 	{
 		path: "*",
