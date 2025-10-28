@@ -1,8 +1,10 @@
 import axios from "axios";
 
-export const getTransactionHistory = async () => {
+export const getTransactionHistory = async (query) => {
 	const { data } = await axios.get(
-		`${import.meta.env.VITE_BASE_URL}/get-historical-transactions?limit=10`
+		`${
+			import.meta.env.VITE_BASE_URL
+		}/get-historical-transactions?limit=10&tx_id=${query}`
 	);
 
 	return data.data;

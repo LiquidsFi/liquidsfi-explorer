@@ -1,7 +1,15 @@
 import { CiSearch } from "react-icons/ci";
 import { RxCaretRight } from "react-icons/rx";
+import { useNavigate } from "react-router";
 
-function Search({ bgColor, width, visible }) {
+function Search({ bgColor, width, visible, query, setQuery }) {
+	const handleInputChange = (e) => {
+		console.log(e.target.value);
+		setQuery(e.target.value);
+	};
+
+	const navigate = useNavigate();
+
 	return (
 		<div
 			className={`relative max-w-[436px] ${width} text-base text-[#B2B9C7] ${bgColor} ${
@@ -14,16 +22,21 @@ function Search({ bgColor, width, visible }) {
 
 			<input
 				type="text"
-				placeholder="Message ID / Txn Hash / Address"
+				value={query}
+				onChange={handleInputChange}
+				placeholder="Message ID"
 				className={`w-full rounded-md border-none bg-[w-[436px] ${
 					visible ? "" : "pl-6"
 				} text-[14px] text-white outline-none placeholder:text-[#B2B9C7]`}
 			/>
 
 			{visible ? (
-				<div className="bg-[#000B09] p-1 rounded-lg absolute top-1/2 right-2 -translate-y-1/2">
+				<button
+					onClick={() => navigate(`/${query}`, { replace: true })}
+					className="bg-[#000B09] cursor-pointer p-1 rounded-lg absolute top-1/2 right-2 -translate-y-1/2"
+				>
 					<RxCaretRight className="text-[24px] text-white" />
-				</div>
+				</button>
 			) : null}
 		</div>
 	);

@@ -25,7 +25,7 @@ import History from "./History";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate, useParams } from "react-router";
 
-function TransactionHistory() {
+function TransactionHistory({ query }) {
 	const navigate = useNavigate();
 	const { id: transactionIdFromUrl } = useParams();
 
@@ -34,13 +34,12 @@ function TransactionHistory() {
 		isLoading: loadingTransactionHistory,
 		isError: errorLoadingTransactionHistory,
 	} = useQuery({
-		queryKey: ["transactionHistory"],
-		queryFn: () => getTransactionHistory(),
+		queryKey: ["transactionHistory", query],
+		queryFn: () => getTransactionHistory(query),
 		keepPreviousData: true,
 	});
 
 	const [openTransaction, setOpenTransaction] = useState(null);
-
 	const [isDesktop, setIsDesktop] = useState(
 		typeof window !== "undefined" ? window.innerWidth >= 1024 : false
 	);
