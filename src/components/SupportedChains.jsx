@@ -5,8 +5,9 @@ import { Fragment } from "react";
 import Loader from "./Loader";
 import Empty from "./Empty";
 import { shortenString } from "@/utils";
+import { Link } from "react-router";
 
-function SupportedChains() {
+function SupportedChains({ detailsPage = false }) {
 	const {
 		data: supportedNetworksData,
 		isLoading: loadingSupportedNetworks,
@@ -18,11 +19,21 @@ function SupportedChains() {
 	});
 
 	return (
-		<div className="lg:col-span-3 space-y-4">
+		<div
+			className={`${
+				!detailsPage ? "lg:col-span-3" : "lg:col-span-2"
+			} space-y-4`}
+		>
 			<div className="flex justify-between items-center">
-				<h2 className="text-[20px] lg:text-[24px]">Supported Networks</h2>
+				{!detailsPage ? (
+					<>
+						<h2 className="text-[20px]">Supported Networks</h2>
 
-				<FaArrowRightLong className="text-[28px] text-white" />
+						<Link to="/supported-chains">
+							<FaArrowRightLong className="text-[28px] text-white" />
+						</Link>
+					</>
+				) : null}
 			</div>
 
 			<div className="border border-[#09243B] p-6 rounded-xl">
@@ -42,8 +53,9 @@ function SupportedChains() {
 										className="h-[38px] w-[38px]"
 										alt=""
 									/>
+
 									<span className="text-[#2DD4BF] flex-1 text-center text-[14px] sm:text-[18px]">
-										{shortenString(network.oracleContract, 10)}
+										{shortenString(network.oracleContract, 20)}
 									</span>
 
 									<span className="text-center flex-1 text-[14px] sm:text-[18px]">

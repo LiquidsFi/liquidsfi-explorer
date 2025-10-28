@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 
 function Search({ bgColor, width, visible, query, setQuery }) {
 	const handleInputChange = (e) => {
-		console.log(e.target.value);
 		setQuery(e.target.value);
 	};
 
