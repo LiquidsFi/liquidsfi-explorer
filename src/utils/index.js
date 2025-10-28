@@ -34,7 +34,7 @@ export function shortenString(str, maxLength = 20) {
 	return `${start}...${end}`;
 }
 
-export function wrapString(str, lineLength = 90) {
+export function wrapString(str, lineLength = 60) {
 	if (!str) return "";
 	return str.match(new RegExp(`.{1,${lineLength}}`, "g")).join("\n");
 }

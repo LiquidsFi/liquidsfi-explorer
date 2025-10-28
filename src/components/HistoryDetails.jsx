@@ -1,4 +1,4 @@
-import { wrapString } from "@/utils";
+import { shortenString } from "@/utils";
 import { BiCopy } from "react-icons/bi";
 import { toast } from "sonner";
 
@@ -30,9 +30,19 @@ function HistoryDetails({
 						<a
 							href={link}
 							target="_blank"
-							className={`font-medium col-span-2  ${textColor}`}
+							className={`font-medium col-span-2 hidden lg:block ${textColor}`}
 						>
 							{value}
+						</a>
+
+						<a
+							href={link}
+							target="_blank"
+							className={`font-medium col-span-2 lg:hidden  ${textColor}`}
+						>
+							{(title === "Origin Transaction Hash" ||
+								title === "Destination Transaction Hash") &&
+								shortenString(value)}
 						</a>
 						{iconPresent && (
 							<span
@@ -45,20 +55,42 @@ function HistoryDetails({
 						)}
 					</div>
 				) : (
-					<span
-						className={`font-medium col-span-2 flex items-center gap-2 ${textColor}`}
-					>
-						{title === "Transaction Data" ? wrapString(value) : value}
-						{iconPresent && (
-							<span
-								onClick={handleCopy}
-								className="cursor-pointer hover:text-[#2DD4BF] transition"
-								title="Copy to clipboard"
-							>
-								<BiCopy className="text-white shrink-0" />
-							</span>
-						)}
-					</span>
+					<>
+						<span
+							className={`font-medium col-span-2 lg:flex items-center hidden gap-2 ${textColor}`}
+						>
+							{title === "Transaction Data" ? shortenString(value, 65) : value}
+							{iconPresent && (
+								<span
+									onClick={handleCopy}
+									className="cursor-pointer hover:text-[#2DD4BF] transition"
+									title="Copy to clipboard"
+								>
+									<BiCopy className="text-white shrink-0" />
+								</span>
+							)}
+						</span>
+
+						<span
+							className={`font-medium col-span-2 flex lg:hidden items-center gap-2 ${textColor}`}
+						>
+							{title === "Msg ID" ||
+							title === "Transaction Data" ||
+							title === "Sender Contract" ||
+							title === "Destination Contract"
+								? shortenString(value)
+								: value}
+							{iconPresent && (
+								<span
+									onClick={handleCopy}
+									className="cursor-pointer hover:text-[#2DD4BF] transition"
+									title="Copy to clipboard"
+								>
+									<BiCopy className="text-white shrink-0" />
+								</span>
+							)}
+						</span>
+					</>
 				)}
 			</div>
 		</div>
