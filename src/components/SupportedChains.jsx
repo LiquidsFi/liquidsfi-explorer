@@ -47,20 +47,22 @@ function SupportedChains({ detailsPage = false }) {
 					<>
 						{supportedNetworksData.map((network, i) => (
 							<Fragment key={i}>
-								<div className="border-b border-[#09243B] pb-6 flex justify-between gap-4 items-center mb-6 last:border-0 last:pb-0 last:mb-0">
-									<img
-										src={network.icon}
-										className="h-[38px] w-[38px]"
-										alt=""
-									/>
+								<div className="border-b border-[#09243B] pb-6 flex flex-wrap justify-between gap-4 items-center mb-6 last:border-0 last:pb-0 last:mb-0">
+									<div className="flex items-center gap-3">
+										<img src={network.icon} className="h-7 w-7" alt="" />
 
-									<span className="text-[#2DD4BF] flex-1 text-center text-[14px] sm:text-[18px]">
-										{shortenString(network.oracleContract, 20)}
-									</span>
+										<span className="text-[14px] text-[#E5E5EA]">
+											{network.name}
+										</span>
+									</div>
 
-									<span className="text-center flex-1 text-[14px] sm:text-[18px]">
-										{network.name}
-									</span>
+									<p className="text-[#E5E5EA] text-[14px] overflow-scroll text-right lg:hidden">
+										{network.oracleContract}
+									</p>
+
+									<p className="text-[#E5E5EA] flex-1 text-[14px] overflow-scroll hidden text-right lg:block">
+										{shortenString(network.oracleContract, 40)}
+									</p>
 								</div>
 							</Fragment>
 						))}
