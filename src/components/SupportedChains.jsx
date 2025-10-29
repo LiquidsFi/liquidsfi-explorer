@@ -6,8 +6,6 @@ import Loader from "./Loader";
 import Empty from "./Empty";
 import { shortenString } from "@/utils";
 import { Link } from "react-router";
-// import { toast } from "sonner";
-// import { BiCopy } from "react-icons/bi";
 
 function SupportedChains({ detailsPage = false }) {
 	const {
@@ -19,18 +17,6 @@ function SupportedChains({ detailsPage = false }) {
 		queryFn: () => getSupportedChains(),
 		keepPreviousData: true,
 	});
-
-	// const handleCopy = async (e, title, value) => {
-	// 	e.stopPropagation();
-	// 	if (!value) return;
-	// 	try {
-	// 		await navigator.clipboard.writeText(value);
-	// 		toast.success(`${title} ID copied to clipboard.`);
-	// 	} catch (e) {
-	// 		console.error(e);
-	// 		toast.error("Failed to copy text.");
-	// 	}
-	// };
 
 	return (
 		<div
@@ -70,18 +56,8 @@ function SupportedChains({ detailsPage = false }) {
 										</span>
 									</div>
 
-									<p className="text-[#E5E5EA] text-[14px] overflow-scroll text-right flex items-center gap-2">
+									<p className="text-[#E5E5EA] text-[14px] overflow-scroll text-right">
 										{shortenString(network.oracleContract)}
-
-										{/* <span
-											onClick={(e) =>
-												handleCopy(e, network.name, network.oracleContract)
-											}
-											className="cursor-pointer hover:text-[#2DD4BF] transition"
-											title="Copy to clipboard"
-										>
-											<BiCopy className="text-white shrink-0" />
-										</span> */}
 									</p>
 								</div>
 							</Fragment>

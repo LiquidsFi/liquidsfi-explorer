@@ -45,11 +45,10 @@ function TransactionHistoryDetails({ transaction }) {
 					value={capitalizeFirst(transaction.destination_status)}
 				/>
 
-				<div className="border-b p-4 overflow-scroll border-[#09243B] grid gap-2 grid-cols-1 md:grid-cols-3">
-					<span className="text-[#D2D5D9] font-medium">Final Status</span>
-
-					<Status transaction={transaction} />
-				</div>
+				<HistoryDetails
+					title="Final Status"
+					value={<Status transaction={transaction} />}
+				/>
 
 				{transaction.error && (
 					<HistoryDetails
@@ -78,33 +77,35 @@ function TransactionHistoryDetails({ transaction }) {
 					value={transaction.transmission_attempt_count}
 				/>
 
-				<div className="border-b p-4 overflow-scroll border-[#09243B] gap-2 grid grid-cols-1 md:grid-cols-3">
-					<span className="text-[#D2D5D9] font-medium">Source Chain</span>
+				<HistoryDetails
+					title="Source Chain"
+					value={
+						<span className="font-medium flex items-center text-left text-[#D2D5D9] gap-2">
+							<img
+								src={transaction.origin_chain_info.origin_icon}
+								className="h-7 w-7"
+								alt=""
+							/>
 
-					<span className="font-medium flex items-center text-left text-[#D2D5D9] gap-2">
-						<img
-							src={transaction.origin_chain_info.origin_icon}
-							className="h-7 w-7"
-							alt=""
-						/>
+							<span>{transaction.origin_chain_info.origin_name}</span>
+						</span>
+					}
+				/>
 
-						<span>{transaction.origin_chain_info.origin_name}</span>
-					</span>
-				</div>
+				<HistoryDetails
+					title="Destination Chain"
+					value={
+						<span className="font-medium flex items-center text-left text-[#D2D5D9] gap-2">
+							<img
+								src={transaction.dest_chain_info.dest_icon}
+								className="h-7 w-7"
+								alt=""
+							/>
 
-				<div className="border-b p-4 overflow-scroll border-[#09243B] gap-2 grid grid-cols-1 md:grid-cols-3">
-					<span className="text-[#D2D5D9] font-medium">Destination Chain</span>
-
-					<span className="font-medium flex items-center text-left text-[#D2D5D9] gap-2">
-						<img
-							src={transaction.dest_chain_info.dest_icon}
-							className="h-7 w-7"
-							alt=""
-						/>
-
-						<span>{transaction.dest_chain_info.dest_name}</span>
-					</span>
-				</div>
+							<span>{transaction.dest_chain_info.dest_name}</span>
+						</span>
+					}
+				/>
 
 				<HistoryDetails
 					title="Created At"
