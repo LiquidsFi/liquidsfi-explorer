@@ -22,7 +22,7 @@ function HistoryDetails({
 
 	return (
 		<div>
-			<div className="border-b p-4 overflow-scroll border-[#09243B] gap-2 flex justify-between">
+			<div className="border-b p-4 overflow-scroll border-[#09243B] gap-2 flex justify-between items-center">
 				<span className="text-[#D2D5D9] font-medium col-span-1">{title}</span>
 
 				{link ? (
@@ -57,9 +57,9 @@ function HistoryDetails({
 				) : (
 					<>
 						<span
-							className={`font-medium col-span-2 lg:flex items-center hidden gap-2 ${textColor}`}
+							className={`font-medium lg:flex items-center hidden gap-2 ${textColor}`}
 						>
-							{title === "Transaction Data" ? shortenString(value, 65) : value}
+							{title === "Transaction Data" ? shortenString(value, 50) : value}
 							{iconPresent && (
 								<span
 									onClick={handleCopy}
