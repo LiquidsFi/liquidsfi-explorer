@@ -3,7 +3,6 @@ import Status from "./Status";
 import ToFrom from "./ToFrom";
 
 function History({ transaction }) {
-	console.log({ transaction });
 	return (
 		<div className="flex flex-wrap gap-2 items-center justify-between">
 			<div>

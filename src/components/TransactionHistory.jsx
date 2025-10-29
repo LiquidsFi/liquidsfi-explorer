@@ -23,9 +23,10 @@ import Empty from "./Empty";
 import TransactionHistoryDetails from "./TransactionHistoryDetails";
 import History from "./History";
 import { IoMdClose } from "react-icons/io";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
+import { FaArrowRightLong } from "react-icons/fa6";
 
-function TransactionHistory({ query }) {
+function TransactionHistory({ query, detailsPage }) {
 	const navigate = useNavigate();
 	const { id: transactionIdFromUrl } = useParams();
 
@@ -72,7 +73,17 @@ function TransactionHistory({ query }) {
 
 	return (
 		<div className="lg:col-span-4 space-y-4">
-			<h2 className="text-[20px] font-bold">Latest Transactions</h2>
+			<div className="flex items-center justify-between gap-2">
+				{!detailsPage ? (
+					<>
+						<h2 className="text-[20px] font-bold">Latest Transactions</h2>
+
+						{/* <Link to="/transactions-history">
+							<FaArrowRightLong className="text-[28px] text-white" />
+						</Link> */}
+					</>
+				) : null}
+			</div>
 
 			<div className="border border-[#09243B] p-6 rounded-xl">
 				{loadingTransactionHistory ? (
