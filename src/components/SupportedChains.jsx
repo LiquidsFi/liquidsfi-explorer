@@ -47,7 +47,7 @@ function SupportedChains({ detailsPage = false }) {
 					<>
 						{supportedChainsData.map((network, i) => (
 							<Fragment key={i}>
-								<div className="border-b border-[#09243B] pb-6 flex flex-wrap justify-between gap-4 items-center mb-6 last:border-0 last:pb-0 last:mb-0">
+								<div className="border-b border-[#09243B] pb-4 flex flex-wrap justify-between gap-4 items-center mb-4 last:border-0 last:pb-0 last:mb-0">
 									<div className="flex items-center gap-3">
 										<img src={network.icon} className="h-7 w-7" alt="" />
 

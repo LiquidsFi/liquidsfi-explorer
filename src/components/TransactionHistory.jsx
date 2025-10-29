@@ -95,7 +95,7 @@ function TransactionHistory({ query, detailsPage }) {
 				) : (
 					transactionHistoryData.map((transaction, i) => (
 						<Fragment key={i}>
-							<div className="border-b border-[#09243B] pb-4 cursor-pointer mb-6 last:border-0 last:pb-0 last:mb-0">
+							<div className="border-b border-[#09243B] pb-4 cursor-pointer mb-4 last:border-0 last:pb-0 last:mb-0">
 								{isDesktop ? (
 									<Sheet
 										open={openTransaction === i}
