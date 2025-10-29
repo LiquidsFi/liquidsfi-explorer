@@ -1,22 +1,36 @@
 import { FaArrowRightLong } from "react-icons/fa6";
-import { getSupportedNetworks } from "@/services";
+import { getSupportedChains } from "@/services";
 import { useQuery } from "@tanstack/react-query";
 import { Fragment } from "react";
 import Loader from "./Loader";
 import Empty from "./Empty";
 import { shortenString } from "@/utils";
 import { Link } from "react-router";
+// import { toast } from "sonner";
+// import { BiCopy } from "react-icons/bi";
 
 function SupportedChains({ detailsPage = false }) {
 	const {
-		data: supportedNetworksData,
-		isLoading: loadingSupportedNetworks,
-		isError: errorLoadingSupportedNetworks,
+		data: supportedChainsData,
+		isLoading: loadingSupportedChains,
+		isError: errorLoadingSupportedChains,
 	} = useQuery({
-		queryKey: ["supportedNetworks"],
-		queryFn: () => getSupportedNetworks(),
+		queryKey: ["supportedChains"],
+		queryFn: () => getSupportedChains(),
 		keepPreviousData: true,
 	});
+
+	// const handleCopy = async (e, title, value) => {
+	// 	e.stopPropagation();
+	// 	if (!value) return;
+	// 	try {
+	// 		await navigator.clipboard.writeText(value);
+	// 		toast.success(`${title} ID copied to clipboard.`);
+	// 	} catch (e) {
+	// 		console.error(e);
+	// 		toast.error("Failed to copy text.");
+	// 	}
+	// };
 
 	return (
 		<div
@@ -27,7 +41,7 @@ function SupportedChains({ detailsPage = false }) {
 			<div className="flex justify-between items-center">
 				{!detailsPage ? (
 					<>
-						<h2 className="text-[20px]">Supported Networks</h2>
+						<h2 className="text-[20px] font-bold">Supported Chains</h2>
 
 						<Link to="/supported-chains">
 							<FaArrowRightLong className="text-[28px] text-white" />
@@ -37,31 +51,37 @@ function SupportedChains({ detailsPage = false }) {
 			</div>
 
 			<div className="border border-[#09243B] p-6 rounded-xl">
-				{loadingSupportedNetworks ? (
+				{loadingSupportedChains ? (
 					<Loader />
-				) : errorLoadingSupportedNetworks ? (
+				) : errorLoadingSupportedChains ? (
 					<Empty title="Failed to load supported networks..." />
-				) : supportedNetworksData.length === 0 ? (
+				) : supportedChainsData.length === 0 ? (
 					<Empty title="No supported networks found..." />
 				) : (
 					<>
-						{supportedNetworksData.map((network, i) => (
+						{supportedChainsData.map((network, i) => (
 							<Fragment key={i}>
 								<div className="border-b border-[#09243B] pb-6 flex flex-wrap justify-between gap-4 items-center mb-6 last:border-0 last:pb-0 last:mb-0">
 									<div className="flex items-center gap-3">
 										<img src={network.icon} className="h-7 w-7" alt="" />
 
-										<span className="text-[14px] text-[#E5E5EA]">
+										<span className="text-[14px] hidden [@media(min-width:408px)]:block text-[#E5E5EA]">
 											{network.name}
 										</span>
 									</div>
 
-									<p className="text-[#E5E5EA] text-[14px] overflow-scroll text-right lg:hidden">
-										{network.oracleContract}
-									</p>
+									<p className="text-[#E5E5EA] text-[14px] overflow-scroll text-right flex items-center gap-2">
+										{shortenString(network.oracleContract)}
 
-									<p className="text-[#E5E5EA] flex-1 text-[14px] overflow-scroll hidden text-right lg:block">
-										{shortenString(network.oracleContract, 40)}
+										{/* <span
+											onClick={(e) =>
+												handleCopy(e, network.name, network.oracleContract)
+											}
+											className="cursor-pointer hover:text-[#2DD4BF] transition"
+											title="Copy to clipboard"
+										>
+											<BiCopy className="text-white shrink-0" />
+										</span> */}
 									</p>
 								</div>
 							</Fragment>

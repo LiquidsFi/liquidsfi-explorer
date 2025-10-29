@@ -10,7 +10,7 @@ export const getTransactionHistory = async (query) => {
 	return data.data;
 };
 
-export const getSupportedNetworks = async () => {
+export const getSupportedChains = async () => {
 	const { data } = await axios.get(
 		`${import.meta.env.VITE_BASE_URL}/supported-chains`
 	);

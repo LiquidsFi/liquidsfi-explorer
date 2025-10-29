@@ -72,7 +72,7 @@ function TransactionHistory({ query }) {
 
 	return (
 		<div className="lg:col-span-4 space-y-4">
-			<h2 className="text-[20px]">Latest transaction</h2>
+			<h2 className="text-[20px] font-bold">Latest Transactions</h2>
 
 			<div className="border border-[#09243B] p-6 rounded-xl">
 				{loadingTransactionHistory ? (
